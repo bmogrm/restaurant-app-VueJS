@@ -1,46 +1,39 @@
 <script setup>
 import { useAuthStore } from "@/stores/authStore";
-export deafult {
-  data() {
-    return {
-      email: '',
-      password: '',
-      authStore: useAuthStore(),
-    };
-  },
-  computed: {
-    isAuthenticated() {
-      return this.authStore.isAuthenticated;
-    },
-    user() {
-      return this.authStore.user;
-    },
-    authError() {
-      return this.authStore.errorMessage;
-    },
-  },
-  methods: {
-    logout() {
-      this.authStore.logout();
-    },
-    login() {
-      this.authStore.login({email. this.email, password: this.password});
-    },
-  },
-  mounted() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.authStore.isAuthenticated = true;
-      this.authStore.getUser();
-    }
-  },
+import { ref, computed, onMounted } from "vue";
+
+const authStore = useAuthStore();
+const email = ref('');
+const password = ref('');
+
+// Вычисляемые свойства
+const isAuthenticated = computed(() => authStore.isAuthenticated);
+const user = computed(() => authStore.user);
+const authError = computed(() => authStore.errorMessage);
+
+// Методы
+const logout = () => {
+  authStore.logout();
 };
+
+const login = () => {
+  authStore.login({ email: email.value, password: password.value });
+};
+
+// Монтирование
+onMounted(() => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    authStore.isAuthenticated = true;
+    authStore.getUser();
+  }
+});
 </script>
 
 <template>
   <header>
     <nav>
-      <div v-if="'isAuthenticated && user'">
+      <div v-if="isAuthenticated && user">
         Добро пожаловать, {{ user.name }}
         <button @click="logout">Выйти</button>
       </div>
