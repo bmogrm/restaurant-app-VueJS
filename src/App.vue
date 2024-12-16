@@ -1,38 +1,44 @@
 <script setup>
-import { useAuthStore } from "@/stores/authStore";
-import { ref, computed, onMounted } from "vue";
+import { useAuthStore } from '@/stores/authStore'
+import { ref, computed, onMounted } from 'vue'
 
-const authStore = useAuthStore();
-const email = ref('');
-const password = ref('');
+const authStore = useAuthStore()
+const email = ref('')
+const password = ref('')
 
 // Вычисляемые свойства
-const isAuthenticated = computed(() => authStore.isAuthenticated);
-const user = computed(() => authStore.user);
-const authError = computed(() => authStore.errorMessage);
+const isAuthenticated = computed(() => authStore.isAuthenticated)
+const user = computed(() => authStore.user)
+const authError = computed(() => authStore.errorMessage)
 
 // Методы
 const logout = () => {
-  authStore.logout();
-};
+  authStore.logout()
+}
 
 const login = () => {
-  authStore.login({ email: email.value, password: password.value });
-};
+  authStore.login({ email: email.value, password: password.value })
+}
 
 // Монтирование
 onMounted(() => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
   if (token) {
-    authStore.isAuthenticated = true;
-    authStore.getUser();
+    authStore.isAuthenticated = true
+    authStore.getUser()
   }
-});
+})
 </script>
 
 <template>
   <header>
     <nav>
+      <ul>
+        <li><router-link to="/">Главная</router-link></li>
+        <li><router-link to="/categories">Категории</router-link></li>
+        <li><router-link to="/dishes">Блюда</router-link></li>
+      </ul>
+      <router-view />
       <div v-if="isAuthenticated && user">
         Добро пожаловать, {{ user.name }}
         <button @click="logout">Выйти</button>
