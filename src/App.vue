@@ -1,13 +1,13 @@
 <script>
 //import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
-import Button from 'primevue/button'
+import PrimeButton from 'primevue/button'
 import Menubar from 'primevue/menubar'
 import InputText from 'primevue/inputtext'
 
 export default {
   components: {
-    Button,
+    PrimeButton,
     Menubar,
     InputText
   },
@@ -99,7 +99,7 @@ export default {
         <div v-if="isAuthenticated && user" class="user-info">
           <span class="pi pi-fw pi-user user-icon"></span>
           <span class="user-name">{{ user.name }}</span>
-          <Button @click="logout" class="logout-button">Выйти</Button>
+          <PrimeButton @click="logout" class="logout-button">Выйти</PrimeButton>
         </div>
         <div v-else class="login-form">
           <form @submit.prevent="login" class="login-form-container">
@@ -117,7 +117,7 @@ export default {
               class="login-input"
               :class="{ 'p-invalid': authError }"
             />
-            <Button type="submit" class="login-button">Войти</Button>
+            <PrimeButton type="submit" class="login-button">Войти</PrimeButton>
           </form>
           <small v-if="authError" class="error-message">{{ authError }}</small>
         </div>
