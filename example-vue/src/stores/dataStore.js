@@ -13,7 +13,8 @@ export const useDataStore = defineStore('data', {
     recipes_total: null,
     ingredients: [],
     ingredients_total: null,
-    errorMessage: ''
+    errorMessage: '',
+    errorCode: ''
   }),
   actions: {
     async get_categories(page = 0, perpage = 5) {
@@ -97,6 +98,32 @@ export const useDataStore = defineStore('data', {
           this.errorMessage = error.message
           console.log(error)
         } else {
+          console.log(error)
+        }
+      }
+    },
+    async create_dishes(formData) {
+      this.errorMessage = ''
+      try {
+        const response = await axios.post(backendUrl + '/dish', formData, {
+          headers: {
+            'Content-Type': 'multiple/form-data',
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+        })
+        this.errorCode = response.data.code
+        this.errorMessage = response.data.message
+      } catch (error) {
+        if (error.response) {
+          this.errorCode = 11
+          this.errorMessage = error.response.data.message
+          console.log(error)
+        } else if (error.request) {
+          this.errorCode = 12
+          this.errorMessage = error.message
+          console.log(error)
+        } else {
+          this.errorCode = 13
           console.log(error)
         }
       }

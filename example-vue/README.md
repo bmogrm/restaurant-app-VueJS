@@ -1,4 +1,12 @@
-# restaurant-app-VueJS
+# example-vue
+
+## О проекте 
+
+**Автор**: Ревцова С.Т.
+**Группа**: 609-11
+**Название проекта**: example-vue
+
+
 
 This template should help get you started developing with Vue 3 in Vite.
 

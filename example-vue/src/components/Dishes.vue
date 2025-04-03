@@ -9,25 +9,38 @@
     :totalRecords="dishes_total"
     @page="onPageChange"
     responsive-layout="scroll"
-    :laading="true"
+
     :first="offset"
-    paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+
     currentPageReportTemplate="{first} to {last} of {totalRecords}"
   >
     <Column field="id" header="№" />
     <Column field="name" header="Наименование" />
     <Column field="cooking" header="Рецепт" />
     <Column field="time" header="Время приготовления" />
+    <template #footer>
+      <div class="text-end">
+        <Button
+          type="button"
+          label="Добавить блюдо"
+          icon="pi pi-users"
+          @click="this.$router.push('/createDishes')"
+          style="width: 30px; height: 30px; font-size: 2rem"
+        />
+      </div>
+    </template>
   </DataTable>
 </template>
 <script>
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
+import Button from 'primevue/button'
 import { useDataStore } from '@/stores/dataStore'
 
 export default {
   name: 'DishesList',
-  components: { DataTable, Column },
+  components: { DataTable, Column, Button },
   data() {
     return {
       dataStore: useDataStore(),

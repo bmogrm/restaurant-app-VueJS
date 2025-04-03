@@ -4,6 +4,7 @@ import Dishes from '@/components/Dishes.vue'
 import Categories from '@/components/Categories.vue'
 import Ingredients from '@/components/Ingredients.vue'
 import Recipes from '@/components/Recipes.vue'
+import CreateDishes from '@/components/CreateDishes.vue'
 const routes = [
   {
     path: '/',
@@ -24,7 +25,11 @@ const routes = [
   {
     path: '/recipes',
     component: Recipes
-  }
+  },
+    {
+      path: '/createDishes',
+      component: CreateDishes
+    }
 ]
 const router = createRouter({
   history: createWebHistory(), // Используем режим истории HTML5
