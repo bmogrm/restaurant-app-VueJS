@@ -19,6 +19,14 @@
     <Column field="name" header="Наименование" />
     <Column field="cooking" header="Рецепт" />
     <Column field="time" header="Время приготовления" />
+    <Column header="Изображение">
+                <template #body="{data}">
+                        <div style="display: flex; align-items: center;">
+                                <img :src="data.picture_url" :alt="data.name" v-if="data.picture_url" style="max-width: 100px; max-height: 100px; object-fit: contain;">
+                                <span v-else>Нет изображения</span>
+                        </div>
+                </template>
+            </Column>
     <template #footer>
       <div class="text-end">
         <Button

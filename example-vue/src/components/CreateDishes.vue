@@ -9,7 +9,7 @@
         <InputText
           type="text"
           placeholder="Введите рецепт приготовления"
-          v-model="this.dishCooking"
+          v-model="dishCooking"
         />
       </div>
       <div class="flex flex-col mb-4 mt-4">
@@ -17,6 +17,13 @@
           type="number"
           placeholder="Введите время приготовления"
           v-model="this.dishTime"
+        />
+      </div>
+      <div class="flex flex-col mb-4 mt-4">
+        <InputText
+          type="number"
+          placeholder="Введите номер категории"
+          v-model="this.category_id"
         />
       </div>
       <div class="mb-4 mt-4">
@@ -60,7 +67,8 @@ export default {
       dishName: '',
       dishCooking: '',
       dishTime: null,
-      dishImage: null
+      dishImage: null,
+      category_id: null
     }
   },
   computed: {
@@ -87,9 +95,10 @@ export default {
     async createDishes() {
       const formData = new FormData()
       formData.append('name', this.dishName)
-      formData.append('picture_url', this.dishImage)
+      formData.append('image', this.dishImage)
       formData.append('cooking', this.dishCooking)
       formData.append('time', this.dishTime)
+      formData.append('category_id', this.category_id)
       await this.dataStore.create_dishes(formData)
       if (this.errorCode > 0)
         this.$toast.add({
